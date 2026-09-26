@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>India Rainfall Insights & Predictive Modeling Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Offline Plotly with fallback to CDN -->
+  <script src="lib/plotly.min.js"></script>
+  <script>
+    if (typeof Plotly === 'undefined') {
+      document.write('<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"><\/script>');
+    }
+  </script>
+</head>
+<body>
+
+  <div class="dashboard-container">
+
+    <!-- ================================================================= -->
+    <!-- HEADER                                                            -->
+    <!-- ================================================================= -->
+    <header class="header-wrapper">
+      <div class="header-top">
+        <div class="title-area">
+          <h1>India Rainfall Analytics & Predictive Modeling Dashboard</h1>
+          <p>
+            Comprehensive Hydroclimatic Evaluation (1901–2015), Regional Extremes, Seasonal Monsoon Dependency, 
+            and Next-Year Rainfall Forecasting using Linear Regression & Moving Average Models.
+          </p>
+        </div>
+        <div class="header-actions">
+          <button id="btn-export-csv" class="btn btn-outline" title="Download Complete Prediction Summary">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export Predictions CSV
+          </button>
+          <button id="btn-print" class="btn btn-primary" title="Print or Save Presentation PDF">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            Presentation Snapshot
+          </button>
+        </div>
+      </div>
+
+      <div class="header-metadata">
+        <span class="meta-chip"><span class="badge-dot"></span> Historical Observations: <strong>1901–2015 (115 Years)</strong></span>
+        <span class="meta-chip">Meteorological Subdivisions: <strong>36 IMD Zones</strong></span>
+        <span class="meta-chip">District Climatological Normals: <strong>641 Districts</strong></span>
+        <span class="meta-chip">Data Completeness: <strong>99.86% (70 NA imputed via Long-Term Monthly Normals)</strong></span>
+        <span class="meta-chip">Target Forecast Year: <strong>2016</strong></span>
+      </div>
+    </header>
+
+    <!-- ================================================================= -->
+    <!-- KPI HERO EXECUTIVE SUMMARY                                       -->
+    <!-- ================================================================= -->
+    <section class="kpi-grid">
+      <!-- KPI 1 -->
+      <div class="kpi-card kpi-primary">
+        <div class="kpi-label">National Long-Period Average</div>
+        <div class="kpi-value" id="kpi-national-avg">1,428.2 mm</div>
+        <div class="kpi-subtext">Baseline annual precipitation normal across India</div>
+      </div>
+
+      <!-- KPI 2 -->
+      <div class="kpi-card kpi-wet">
+        <div class="kpi-label">Wettest Subdivision (IMD)</div>
+        <div class="kpi-value" id="kpi-wettest-sub" style="font-size: 20px;">Arunachal Pradesh</div>
+        <div class="kpi-subtext" id="kpi-wettest-val">3,438.5 mm / yr (Coastal Karnataka: 3,405.9 mm)</div>
+      </div>
+
+      <!-- KPI 3 -->
+      <div class="kpi-card kpi-dry">
+        <div class="kpi-label">Driest Subdivision (IMD)</div>
+        <div class="kpi-value" id="kpi-driest-sub" style="font-size: 20px;">West Rajasthan</div>
+        <div class="kpi-subtext" id="kpi-driest-val">292.7 mm / yr (State: Rajasthan 581.6 mm)</div>
+      </div>
+
+      <!-- KPI 4 -->
+      <div class="kpi-card kpi-monsoon">
+        <div class="kpi-label">Peak Monsoon Dependency</div>
+        <div class="kpi-value" id="kpi-monsoon-high" style="font-size: 19px;">Gujarat Region (95.6%)</div>
+        <div class="kpi-subtext" id="kpi-monsoon-low">Lowest: Tamil Nadu (35.1% - relies on Post-Monsoon)</div>
+      </div>
+
+      <!-- KPI 5 -->
+      <div class="kpi-card kpi-trend">
+        <div class="kpi-label">115-Year Historical Trends</div>
+        <div class="kpi-value" id="kpi-trends-val" style="font-size: 19px;">10 ↑ | 11 ▬ | 15 ↓</div>
+        <div class="kpi-subtext" id="kpi-trends-sub">41% declining, 31% stable, 28% increasing</div>
+      </div>
+
+      <!-- KPI 6 -->
+      <div class="kpi-card kpi-forecast">
+        <div class="kpi-label">Next-Year National Forecast</div>
+        <div class="kpi-value" id="kpi-forecast-val">1,409.8 mm</div>
+        <div class="kpi-subtext" id="kpi-forecast-sub">LPA Departure: -1.3% across India</div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- GLOBAL CONTROLS & GEOGRAPHIC LEVEL SWITCHER                      -->
+    <!-- ================================================================= -->
+    <div class="controls-bar">
+      <div class="view-toggle-group">
+        <span class="control-label">Geographic Aggregation Level:</span>
+        <div class="segmented-pill">
+          <button class="pill-btn active" data-level="subdivisions">Meteorological Subdivisions (36)</button>
+          <button class="pill-btn" data-level="states">States & Union Territories (35)</button>
+        </div>
+      </div>
+      <div class="header-metadata" style="margin-top:0;">
+        <span style="font-size: 13px; color: var(--text-secondary);">
+          Tip: Click on any chart bar or map marker to load its 115-year historical trend.
+        </span>
+      </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- PANEL 1: REGIONAL RAINFALL DISTRIBUTION (BAR & MAP)               -->
+    <!-- ================================================================= -->
+    <section class="panel-card">
+      <div class="panel-header">
+        <div>
+          <h2>Regional Rainfall Distribution & Extremes</h2>
+          <div class="panel-subtitle">Comparing long-term annual precipitation across Indian subdivisions and states</div>
+        </div>
+        <div class="panel-tools">
+          <div class="segmented-pill" id="regional-tabs">
+            <button class="pill-btn active" data-tab="bar">Bar Chart Ranking</button>
+            <button class="pill-btn" data-tab="map">Geographic Bubble Map</button>
+          </div>
+        </div>
+      </div>
+      <div id="regional-chart-container" class="chart-container" style="min-height: 440px;"></div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- PANEL 2: SEASONAL BREAKDOWN & MONSOON DEPENDENCY (GRID 2-COL)     -->
+    <!-- ================================================================= -->
+    <div class="grid-2col">
+      <!-- 2A: Seasonal Breakdown -->
+      <section class="panel-card">
+        <div class="panel-header">
+          <div>
+            <h2>Seasonal Precipitation Composition</h2>
+            <div class="panel-subtitle">Breakdown across Winter (Jan-Feb), Pre-Monsoon (Mar-May), Monsoon (Jun-Sep), and Post-Monsoon (Oct-Dec)</div>
+          </div>
+        </div>
+        <div id="seasonal-chart-container" class="chart-container" style="min-height: 420px;"></div>
+      </section>
+
+      <!-- 2B: Monsoon Dependency Ratio -->
+      <section class="panel-card">
+        <div class="panel-header">
+          <div>
+            <h2>Monsoon Dependency Ratio (%)</h2>
+            <div class="panel-subtitle">Proportion of annual rainfall received during the Southwest Monsoon (Jun–Sep)</div>
+          </div>
+        </div>
+        <div id="monsoon-dependency-container" class="chart-container" style="min-height: 420px;"></div>
+      </section>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- PANEL 3: HISTORICAL TREND & PREDICTION EXPLORER (FEATURED)        -->
+    <!-- ================================================================= -->
+    <section class="panel-card featured-panel">
+      <div class="panel-header">
+        <div>
+          <h2>Historical Trend & Next-Year Prediction Explorer (1901–2016)</h2>
+          <div class="panel-subtitle">
+            Long-period regression trendline, moving-average smoothers, and next-year forecast evaluation
+          </div>
+        </div>
+      </div>
+
+      <!-- Controls Row: Region Selector + Model Toggles -->
+      <div class="explorer-controls">
+        <div class="region-selector-wrap">
+          <label for="region-select" class="control-label">Select Region:</label>
+          <button id="btn-prev-region" class="btn btn-outline btn-sm" title="Previous Region">&larr;</button>
+          <select id="region-select" class="select-input"></select>
+          <button id="btn-next-region" class="btn btn-outline btn-sm" title="Next Region">&rarr;</button>
+        </div>
+
+        <div class="model-toggles">
+          <label class="checkbox-label">
+            <input type="checkbox" id="toggle-actual" checked>
+            <span class="color-indicator" style="background:#2563eb;"></span> Actual (1901–2015)
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="toggle-linear" checked>
+            <span class="color-indicator" style="background:#dc2626;"></span> Linear Regression (OLS)
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="toggle-ma5" checked>
+            <span class="color-indicator" style="background:#d97706;"></span> 5-Year Moving Avg
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="toggle-ma10" checked>
+            <span class="color-indicator" style="background:#059669;"></span> 10-Year Moving Avg
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="toggle-forecast" checked>
+            <span class="color-indicator" style="background:#0891b2;"></span> 2016 Forecast Points
+          </label>
+        </div>
+      </div>
+
+      <!-- Sub-Stat Badges for Selected Region -->
+      <div class="explorer-stats-grid">
+        <div class="sub-stat-box">
+          <div class="sub-stat-title">Long-Period Normal</div>
+          <div class="sub-stat-val" id="stat-normal-val">-- mm</div>
+          <div class="sub-stat-sub">115-Year Historical Mean</div>
+        </div>
+        <div class="sub-stat-box">
+          <div class="sub-stat-title">Historical Range</div>
+          <div class="sub-stat-val" id="stat-range-val">-- - -- mm</div>
+          <div class="sub-stat-sub" id="stat-range-sub">Min & Max Recorded</div>
+        </div>
+        <div class="sub-stat-box">
+          <div class="sub-stat-title">115-Year Trend</div>
+          <div class="sub-stat-val" id="stat-trend-val">--</div>
+          <div class="sub-stat-sub" id="stat-trend-sub">Slope & Coefficient R²</div>
+        </div>
+        <div class="sub-stat-box">
+          <div class="sub-stat-title">Hydroclimatic Variability</div>
+          <div class="sub-stat-val" id="stat-cv-val">-- %</div>
+          <div class="sub-stat-sub" id="stat-cv-sub">Coefficient of Variation (CV)</div>
+        </div>
+      </div>
+
+      <!-- Main Trend Chart -->
+      <div id="trend-chart-container" class="chart-container" style="min-height: 460px;"></div>
+
+      <!-- Prediction Model Comparison Cards (Next Year 2016) -->
+      <div class="forecast-comparison-grid">
+        <!-- OLS Model Card -->
+        <div class="forecast-card" id="card-fc-linear">
+          <div class="forecast-card-header">
+            <div>
+              <div class="forecast-model-name">Linear Regression (OLS)</div>
+              <div style="font-size: 11px; color: var(--text-muted);">Trend-based model (Y = m·X + c)</div>
+            </div>
+            <span id="fc-linear-dep" class="departure-pill normal">-- %</span>
+          </div>
+          <div class="forecast-value" id="fc-linear-val">-- mm</div>
+          <div style="font-size: 12px; color: var(--text-secondary);" id="fc-linear-rmse">Historical RMSE: -- mm</div>
+        </div>
+
+        <!-- 5-Year MA Card -->
+        <div class="forecast-card" id="card-fc-ma5">
+          <div class="forecast-card-header">
+            <div>
+              <div class="forecast-model-name">5-Year Moving Average</div>
+              <div style="font-size: 11px; color: var(--text-muted);">Recent short-term climatological mean</div>
+            </div>
+            <span id="fc-ma5-dep" class="departure-pill normal">-- %</span>
+          </div>
+          <div class="forecast-value" id="fc-ma5-val">-- mm</div>
+          <div style="font-size: 12px; color: var(--text-secondary);" id="fc-ma5-rmse">Historical RMSE: -- mm</div>
+        </div>
+
+        <!-- 10-Year MA Card -->
+        <div class="forecast-card" id="card-fc-ma10">
+          <div class="forecast-card-header">
+            <div>
+              <div class="forecast-model-name">10-Year Moving Average</div>
+              <div style="font-size: 11px; color: var(--text-muted);">Decadal smoothed benchmark</div>
+            </div>
+            <span id="fc-ma10-dep" class="departure-pill normal">-- %</span>
+          </div>
+          <div class="forecast-value" id="fc-ma10-val">-- mm</div>
+          <div style="font-size: 12px; color: var(--text-secondary);" id="fc-ma10-rmse">Historical RMSE: -- mm</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- PANEL 4: PREDICTIONS & STATISTICAL SUMMARY TABLE                  -->
+    <!-- ================================================================= -->
+    <section class="panel-card">
+      <div class="panel-header">
+        <div>
+          <h2>Complete Regional Forecasts & Statistical Evaluation</h2>
+          <div class="panel-subtitle">Comprehensive data table comparing historical normals, predictive models, trends, and error metrics</div>
+        </div>
+      </div>
+
+      <!-- Table Toolbar: Search + Trend Filters -->
+      <div class="table-toolbar">
+        <div class="search-box">
+          <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="table-search" class="search-input" placeholder="Search region or state...">
+        </div>
+
+        <div class="table-filter-group">
+          <span style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">Trend Filter:</span>
+          <button class="filter-btn active" data-filter="ALL">All Trends</button>
+          <button class="filter-btn" data-filter="Increasing">Increasing ▲</button>
+          <button class="filter-btn" data-filter="Stable">Stable ▬</button>
+          <button class="filter-btn" data-filter="Decreasing">Decreasing ▼</button>
+        </div>
+
+        <span id="table-count-label" style="font-size: 12px; color: var(--text-muted); font-weight: 500;">
+          Showing 36 records
+        </span>
+      </div>
+
+      <!-- Responsive Table -->
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th data-sort="subdivision">Region / Zone &uarr;&darr;</th>
+              <th data-sort="avgAnnual">Historical Normal &uarr;&darr;</th>
+              <th data-sort="predLinear">Linear Regression Pred &uarr;&darr;</th>
+              <th data-sort="linearDeparturePct">Departure (%) &uarr;&darr;</th>
+              <th data-sort="predMA5">5-Yr MA Pred &uarr;&darr;</th>
+              <th data-sort="predMA10">10-Yr MA Pred &uarr;&darr;</th>
+              <th data-sort="trendClass">Trend &uarr;&darr;</th>
+              <th data-sort="slope">Slope (mm/yr) &uarr;&darr;</th>
+              <th data-sort="rSquared">R² Fit &uarr;&darr;</th>
+              <th>Recommended Model</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="prediction-table-body">
+            <!-- Dynamic rows generated by app.js -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- METHODOLOGY & DATA CLEANING DOCUMENTATION                         -->
+    <!-- ================================================================= -->
+    <section class="methodology-box">
+      <h3>Academic Methodology & Data Processing Notes</h3>
+      <div class="methodology-grid">
+        <div>
+          <strong>1. Data Cleaning & Imputation:</strong>
+          <p>
+            The 1901–2015 dataset contains 4,116 records. Out of 49,392 monthly values, 70 missing entries (0.14%) were detected and imputed using the 
+            specific subdivision's long-term monthly mean. Seasonal aggregates (Winter: Jan-Feb, Pre-Monsoon: Mar-May, Monsoon: Jun-Sep, Post-Monsoon: Oct-Dec) 
+            and annual totals were mathematically recalculated to ensure exact additive consistency.
+          </p>
+        </div>
+        <div>
+          <strong>2. Trend Analysis Classification:</strong>
+          <p>
+            Trends were determined using Ordinary Least Squares (OLS) linear regression of annual precipitation against year (1901–2015). 
+            Regions with absolute slope |m| &ge; 0.5 mm/year were classified as <em>Increasing</em> or <em>Decreasing</em>, while those with |m| &lt; 0.5 mm/year 
+            were classified as <em>Stable</em> climatological regimes.
+          </p>
+        </div>
+        <div>
+          <strong>3. Predictive Modeling & Evaluation:</strong>
+          <p>
+            Next-year (2016) forecasts were generated via three methodologies: (1) OLS Linear Regression, (2) 5-Year Moving Average (recent short-term mean), 
+            and (3) 10-Year Moving Average (decadal mean). Out-of-sample one-step-ahead backtesting was performed across the historical series to compute 
+            Root Mean Squared Error (RMSE) for each model, highlighting the empirical best performer.
+          </p>
+        </div>
+        <div>
+          <strong>4. Climatological Normals & Baseline:</strong>
+          <p>
+            District normals from <code>district_wise_rainfall_normal.csv</code> (641 districts across 35 States/UTs) corroborate the sub-divisional 
+            long-period averages (LPA), identifying intra-state microclimatic extremes (e.g., Cherrapunji/Mawsynram in East Khasi Hills, Meghalaya vs Jaisalmer, Rajasthan).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- FOOTER                                                            -->
+    <!-- ================================================================= -->
+    <footer class="footer">
+      <p>
+        <strong>India Rainfall Prediction Dashboard</strong> &bull; Codesis Tech Internship Program Assignment Submission &bull; 
+        Data Source: India Meteorological Department (IMD) Historical Climatological Records
+      </p>
+    </footer>
+
+  </div>
+
+  <!-- Data Bundle & Application Logic -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
