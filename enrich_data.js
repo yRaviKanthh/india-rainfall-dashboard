@@ -254,8 +254,29 @@ data.states.forEach(stItem => {
     if (rmseMA5 < bestRMSE) { bestModel = '5-Yr Moving Average'; bestRMSE = rmseMA5; }
     if (rmseMA10 < bestRMSE) { bestModel = '10-Yr Moving Average'; bestRMSE = rmseMA10; }
     
+    // Historical Min & Max
+    let minVal = Infinity, minYear = null;
+    let maxVal = -Infinity, maxYear = null;
+    for (let i = 0; i < n; i++) {
+      if (annuals[i] < minVal) { minVal = annuals[i]; minYear = years[i]; }
+      if (annuals[i] > maxVal) { maxVal = annuals[i]; maxYear = years[i]; }
+    }
+
+    // Historical Variance, Std Dev, and CV%
+    const variance = annuals.reduce((acc, val) => acc + Math.pow(val - avgAnn, 2), 0) / n;
+    const stdDev = Number(Math.sqrt(variance).toFixed(2));
+    const cvPct = Number(((stdDev / avgAnn) * 100).toFixed(1));
+    const totalTrendChange = Number((slopeVal * (n - 1)).toFixed(1));
+
     stItem.historicalYears = years;
     stItem.histAvgAnnual = avgAnn;
+    stItem.minVal = minVal;
+    stItem.minYear = minYear;
+    stItem.maxVal = maxVal;
+    stItem.maxYear = maxYear;
+    stItem.stdDev = stdDev;
+    stItem.cvPct = cvPct;
+    stItem.totalTrendChange = totalTrendChange;
     stItem.slope = slopeVal;
     stItem.intercept = Number(intercept.toFixed(2));
     stItem.rSquared = rSquared;

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +14,7 @@
     }
   </script>
 </head>
+
 <body>
 
   <div class="dashboard-container">
@@ -25,27 +27,37 @@
         <div class="title-area">
           <h1>India Rainfall Analytics & Predictive Modeling Dashboard</h1>
           <p>
-            Comprehensive Hydroclimatic Evaluation (1901–2015), Regional Extremes, Seasonal Monsoon Dependency, 
+            Comprehensive Hydroclimatic Evaluation (1901–2015), Regional Extremes, Seasonal Monsoon Dependency,
             and Next-Year Rainfall Forecasting using Linear Regression & Moving Average Models.
           </p>
         </div>
         <div class="header-actions">
           <button id="btn-export-csv" class="btn btn-outline" title="Download Complete Prediction Summary">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
             Export Predictions CSV
           </button>
           <button id="btn-print" class="btn btn-primary" title="Print or Save Presentation PDF">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 6 2 18 2 18 9" />
+              <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+              <rect x="6" y="14" width="12" height="8" />
+            </svg>
             Presentation Snapshot
           </button>
         </div>
       </div>
 
       <div class="header-metadata">
-        <span class="meta-chip"><span class="badge-dot"></span> Historical Observations: <strong>1901–2015 (115 Years)</strong></span>
+        <span class="meta-chip"><span class="badge-dot"></span> Historical Observations: <strong>1901–2015 (115
+            Years)</strong></span>
         <span class="meta-chip">Meteorological Subdivisions: <strong>36 IMD Zones</strong></span>
         <span class="meta-chip">District Climatological Normals: <strong>641 Districts</strong></span>
-        <span class="meta-chip">Data Completeness: <strong>99.86% (70 NA imputed via Long-Term Monthly Normals)</strong></span>
+        <span class="meta-chip">Data Completeness: <strong>99.86% (70 NA imputed via Long-Term Monthly
+            Normals)</strong></span>
         <span class="meta-chip">Target Forecast Year: <strong>2016</strong></span>
       </div>
     </header>
@@ -122,7 +134,8 @@
       <div class="panel-header">
         <div>
           <h2>Regional Rainfall Distribution & Extremes</h2>
-          <div class="panel-subtitle">Comparing long-term annual precipitation across Indian subdivisions and states</div>
+          <div class="panel-subtitle">Comparing long-term annual precipitation across Indian subdivisions and states
+          </div>
         </div>
         <div class="panel-tools">
           <div class="segmented-pill" id="regional-tabs">
@@ -143,7 +156,8 @@
         <div class="panel-header">
           <div>
             <h2>Seasonal Precipitation Composition</h2>
-            <div class="panel-subtitle">Breakdown across Winter (Jan-Feb), Pre-Monsoon (Mar-May), Monsoon (Jun-Sep), and Post-Monsoon (Oct-Dec)</div>
+            <div class="panel-subtitle">Breakdown across Winter (Jan-Feb), Pre-Monsoon (Mar-May), Monsoon (Jun-Sep), and
+              Post-Monsoon (Oct-Dec)</div>
           </div>
         </div>
         <div id="seasonal-chart-container" class="chart-container" style="min-height: 420px;"></div>
@@ -154,7 +168,8 @@
         <div class="panel-header">
           <div>
             <h2>Monsoon Dependency Ratio (%)</h2>
-            <div class="panel-subtitle">Proportion of annual rainfall received during the Southwest Monsoon (Jun–Sep)</div>
+            <div class="panel-subtitle">Proportion of annual rainfall received during the Southwest Monsoon (Jun–Sep)
+            </div>
           </div>
         </div>
         <div id="monsoon-dependency-container" class="chart-container" style="min-height: 420px;"></div>
@@ -284,14 +299,19 @@
       <div class="panel-header">
         <div>
           <h2>Complete Regional Forecasts & Statistical Evaluation</h2>
-          <div class="panel-subtitle">Comprehensive data table comparing historical normals, predictive models, trends, and error metrics</div>
+          <div class="panel-subtitle">Comprehensive data table comparing historical normals, predictive models, trends,
+            and error metrics</div>
         </div>
       </div>
 
       <!-- Table Toolbar: Search + Trend Filters -->
       <div class="table-toolbar">
         <div class="search-box">
-          <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
           <input type="text" id="table-search" class="search-input" placeholder="Search region or state...">
         </div>
 
@@ -342,32 +362,40 @@
         <div>
           <strong>1. Data Cleaning & Imputation:</strong>
           <p>
-            The 1901–2015 dataset contains 4,116 records. Out of 49,392 monthly values, 70 missing entries (0.14%) were detected and imputed using the 
-            specific subdivision's long-term monthly mean. Seasonal aggregates (Winter: Jan-Feb, Pre-Monsoon: Mar-May, Monsoon: Jun-Sep, Post-Monsoon: Oct-Dec) 
+            The 1901–2015 dataset contains 4,116 records. Out of 49,392 monthly values, 70 missing entries (0.14%) were
+            detected and imputed using the
+            specific subdivision's long-term monthly mean. Seasonal aggregates (Winter: Jan-Feb, Pre-Monsoon: Mar-May,
+            Monsoon: Jun-Sep, Post-Monsoon: Oct-Dec)
             and annual totals were mathematically recalculated to ensure exact additive consistency.
           </p>
         </div>
         <div>
           <strong>2. Trend Analysis Classification:</strong>
           <p>
-            Trends were determined using Ordinary Least Squares (OLS) linear regression of annual precipitation against year (1901–2015). 
-            Regions with absolute slope |m| &ge; 0.5 mm/year were classified as <em>Increasing</em> or <em>Decreasing</em>, while those with |m| &lt; 0.5 mm/year 
+            Trends were determined using Ordinary Least Squares (OLS) linear regression of annual precipitation against
+            year (1901–2015).
+            Regions with absolute slope |m| &ge; 0.5 mm/year were classified as <em>Increasing</em> or
+            <em>Decreasing</em>, while those with |m| &lt; 0.5 mm/year
             were classified as <em>Stable</em> climatological regimes.
           </p>
         </div>
         <div>
           <strong>3. Predictive Modeling & Evaluation:</strong>
           <p>
-            Next-year (2016) forecasts were generated via three methodologies: (1) OLS Linear Regression, (2) 5-Year Moving Average (recent short-term mean), 
-            and (3) 10-Year Moving Average (decadal mean). Out-of-sample one-step-ahead backtesting was performed across the historical series to compute 
+            Next-year (2016) forecasts were generated via three methodologies: (1) OLS Linear Regression, (2) 5-Year
+            Moving Average (recent short-term mean),
+            and (3) 10-Year Moving Average (decadal mean). Out-of-sample one-step-ahead backtesting was performed across
+            the historical series to compute
             Root Mean Squared Error (RMSE) for each model, highlighting the empirical best performer.
           </p>
         </div>
         <div>
           <strong>4. Climatological Normals & Baseline:</strong>
           <p>
-            District normals from <code>district_wise_rainfall_normal.csv</code> (641 districts across 35 States/UTs) corroborate the sub-divisional 
-            long-period averages (LPA), identifying intra-state microclimatic extremes (e.g., Cherrapunji/Mawsynram in East Khasi Hills, Meghalaya vs Jaisalmer, Rajasthan).
+            District normals from <code>district_wise_rainfall_normal.csv</code> (641 districts across 35 States/UTs)
+            corroborate the sub-divisional
+            long-period averages (LPA), identifying intra-state microclimatic extremes (e.g., Cherrapunji/Mawsynram in
+            East Khasi Hills, Meghalaya vs Jaisalmer, Rajasthan).
           </p>
         </div>
       </div>
@@ -378,7 +406,8 @@
     <!-- ================================================================= -->
     <footer class="footer">
       <p>
-        <strong>India Rainfall Prediction Dashboard</strong> &bull; Codesis Tech Internship Program Assignment Submission &bull; 
+        <strong>India Rainfall Analytics & Predictive Modeling Dashboard</strong> &bull;
+        Built by Ravikanth &bull;
         Data Source: India Meteorological Department (IMD) Historical Climatological Records
       </p>
     </footer>
@@ -389,4 +418,5 @@
   <script src="data.js"></script>
   <script src="app.js"></script>
 </body>
+
 </html>

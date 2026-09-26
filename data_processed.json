@@ -1447,7 +1447,14 @@
       "rmseLinear": 297,
       "rmseMA5": 317.46,
       "rmseMA10": 323.05,
-      "bestModel": "Linear Regression"
+      "bestModel": "Linear Regression",
+      "minVal": 1743.5,
+      "minYear": 2011,
+      "maxVal": 3403.6,
+      "maxYear": 1974,
+      "stdDev": 308.84,
+      "cvPct": 12,
+      "totalTrendChange": -290.8
     },
     {
       "state": "GOA",
@@ -1593,7 +1600,14 @@
       "rmseLinear": 470.93,
       "rmseMA5": 491.09,
       "rmseMA10": 493.79,
-      "bestModel": "Linear Regression"
+      "bestModel": "Linear Regression",
+      "minVal": 1682.9,
+      "minYear": 1905,
+      "maxVal": 4000.3,
+      "maxYear": 1958,
+      "stdDev": 482.99,
+      "cvPct": 16.2,
+      "totalTrendChange": 368.2
     },
     {
       "state": "KERALA",
@@ -1739,7 +1753,14 @@
       "rmseLinear": 409.55,
       "rmseMA5": 460.14,
       "rmseMA10": 440.44,
-      "bestModel": "Linear Regression"
+      "bestModel": "Linear Regression",
+      "minVal": 2068.8,
+      "minYear": 1976,
+      "maxVal": 4257.9,
+      "maxYear": 1961,
+      "stdDev": 420.27,
+      "cvPct": 14.4,
+      "totalTrendChange": -323.9
     },
     {
       "state": "ARUNACHAL PRADESH",
@@ -1867,7 +1888,14 @@
       "rmseLinear": 765.73,
       "rmseMA5": 808.53,
       "rmseMA10": 806.08,
-      "bestModel": "Linear Regression"
+      "bestModel": "Linear Regression",
+      "minVal": 1668.5,
+      "minYear": 1967,
+      "maxVal": 6331.1,
+      "maxYear": 1948,
+      "stdDev": 1055.41,
+      "cvPct": 30.7,
+      "totalTrendChange": -2384
     },
     {
       "state": "ANDAMAN And NICOBAR ISLANDS",
@@ -2008,7 +2036,14 @@
       "rmseLinear": 399.32,
       "rmseMA5": 429.58,
       "rmseMA10": 411.58,
-      "bestModel": "Linear Regression"
+      "bestModel": "Linear Regression",
+      "minVal": 1849.3,
+      "minYear": 1979,
+      "maxVal": 3938.2,
+      "maxYear": 1961,
+      "stdDev": 401.62,
+      "cvPct": 13.7,
+      "totalTrendChange": -139.5
     },
     {
       "state": "SIKKIM",
@@ -2154,7 +2189,14 @@
       "rmseLinear": 336.39,
       "rmseMA5": 346.24,
       "rmseMA10": 335.88,
-      "bestModel": "10-Yr Moving Average"
+      "bestModel": "10-Yr Moving Average",
+      "minVal": 1988.2,
+      "minYear": 1908,
+      "maxVal": 3655.2,
+      "maxYear": 1998,
+      "stdDev": 336.39,
+      "cvPct": 12.2,
+      "totalTrendChange": 2.9
     },
     {
       "state": "MIZORAM",
@@ -2300,7 +2342,14 @@
       "rmseLinear": 404.4,
       "rmseMA5": 415.65,
       "rmseMA10": 418.34,
-      "bestModel": "Linear Regression"
+      "bestModel": "Linear Regression",
+      "minVal": 1353.9,
+      "minYear": 1972,
+      "maxVal": 4316.3,
+      "maxYear": 1970,
+      "stdDev": 429.85,
+      "cvPct": 17.7,
+      "totalTrendChange": -500.3
     },
     {
       "state": "MANIPUR",
@@ -2446,7 +2495,14 @@
       "rmseLinear": 404.4,
       "rmseMA5": 415.65,
       "rmseMA10": 418.34,
-      "bestModel": "Linear Regression"
+      "bestModel": "Linear Regression",
+      "minVal": 1353.9,
+      "minYear": 1972,
+      "maxVal": 4316.3,
+      "maxYear": 1970,
+      "stdDev": 429.85,
+      "cvPct": 17.7,
+      "totalTrendChange": -500.3
     },
     {
       "state": "TRIPURA",
@@ -2592,7 +2648,14 @@
       "rmseLinear": 404.4,
       "rmseMA5": 415.65,
       "rmseMA10": 418.34,
-      "bestModel": "Linear Regression"
+      "bestModel": "Linear Regression",
+      "minVal": 1353.9,
+      "minYear": 1972,
+      "maxVal": 4316.3,
+      "maxYear": 1970,
+      "stdDev": 429.85,
+      "cvPct": 17.7,
+      "totalTrendChange": -500.3
     },
     {
       "state": "ASSAM",
@@ -2738,7 +2801,14 @@
       "rmseLinear": 297,
       "rmseMA5": 317.46,
       "rmseMA10": 323.05,
-      "bestModel": "Linear Regression"
+      "bestModel": "Linear Regression",
+      "minVal": 1743.5,
+      "minYear": 2011,
+      "maxVal": 3403.6,
+      "maxYear": 1974,
+      "stdDev": 308.84,
+      "cvPct": 12,
+      "totalTrendChange": -290.8
     },
     {
       "state": "DADAR NAGAR HAVELI",
@@ -2884,7 +2954,14 @@
       "rmseLinear": 277.04,
       "rmseMA5": 311.34,
       "rmseMA10": 309.43,
-      "bestModel": "Linear Regression"
+      "bestModel": "Linear Regression",
+      "minVal": 392.7,
+      "minYear": 1918,
+      "maxVal": 1620.1,
+      "maxYear": 1976,
+      "stdDev": 277.19,
+      "cvPct": 30.2,
+      "totalTrendChange": 31.1
     },
     {
       "state": "NAGALAND",
@@ -3030,7 +3107,14 @@
       "rmseLinear": 404.4,
       "rmseMA5": 415.65,
       "rmseMA10": 418.34,
-      "bestModel": "Linear Regression"
+      "bestModel": "Linear Regression",
+      "minVal": 1353.9,
+      "minYear": 1972,
+      "maxVal": 4316.3,
+      "maxYear": 1970,
+      "stdDev": 429.85,
+      "cvPct": 17.7,
+      "totalTrendChange": -500.3
     },
     {
       "state": "WEST BENGAL",
@@ -3176,7 +3260,14 @@
       "rmseLinear": 222.66,
       "rmseMA5": 228.77,
       "rmseMA10": 223.59,
-      "bestModel": "Linear Regression"
+      "bestModel": "Linear Regression",
+      "minVal": 1678.05,
+      "minYear": 1957,
+      "maxVal": 2763.35,
+      "maxYear": 1990,
+      "stdDev": 224.28,
+      "cvPct": 10.6,
+      "totalTrendChange": 92.5
     },
     {
       "state": "LAKSHADWEEP",
@@ -3321,7 +3412,14 @@
       "rmseLinear": 262.48,
       "rmseMA5": 294.06,
       "rmseMA10": 280.31,
-      "bestModel": "Linear Regression"
+      "bestModel": "Linear Regression",
+      "minVal": 992.6,
+      "minYear": 1958,
+      "maxVal": 2361.6,
+      "maxYear": 2007,
+      "stdDev": 264.08,
+      "cvPct": 16.5,
+      "totalTrendChange": -98.9
     },
     {
       "state": "UTTARANCHAL",
@@ -3467,7 +3565,14 @@
       "rmseLinear": 258.74,
       "rmseMA5": 279.25,
       "rmseMA10": 267.34,
-      "bestModel": "Linear Regression"
+      "bestModel": "Linear Regression",
+      "minVal": 803.5,
+      "minYear": 1997,
+      "maxVal": 2103,
+      "maxYear": 1917,
+      "stdDev": 262.87,
+      "cvPct": 17.9,
+      "totalTrendChange": -159.6
     },
     {
       "state": "DAMAN AND DUI",
@@ -3613,7 +3718,14 @@
       "rmseLinear": 277.04,
       "rmseMA5": 311.34,
       "rmseMA10": 309.43,
-      "bestModel": "Linear Regression"
+      "bestModel": "Linear Regression",
+      "minVal": 392.7,
+      "minYear": 1918,
+      "maxVal": 1620.1,
+      "maxYear": 1976,
+      "stdDev": 277.19,
+      "cvPct": 30.2,
+      "totalTrendChange": 31.1
     },
     {
       "state": "ORISSA",
@@ -3759,7 +3871,14 @@
       "rmseLinear": 184.1,
       "rmseMA5": 199.92,
       "rmseMA10": 198.56,
-      "bestModel": "Linear Regression"
+      "bestModel": "Linear Regression",
+      "minVal": 987,
+      "minYear": 1974,
+      "maxVal": 1945.2,
+      "maxYear": 1961,
+      "stdDev": 186.29,
+      "cvPct": 12.8,
+      "totalTrendChange": -97.8
     },
     {
       "state": "PONDICHERRY",
@@ -3905,7 +4024,14 @@
       "rmseLinear": 164.85,
       "rmseMA5": 191.38,
       "rmseMA10": 177.64,
-      "bestModel": "Linear Regression"
+      "bestModel": "Linear Regression",
+      "minVal": 318,
+      "minYear": 2002,
+      "maxVal": 1365.4,
+      "maxYear": 2005,
+      "stdDev": 165.28,
+      "cvPct": 17.5,
+      "totalTrendChange": -40.8
     },
     {
       "state": "HIMACHAL",
@@ -4051,7 +4177,14 @@
       "rmseLinear": 244.2,
       "rmseMA5": 228.18,
       "rmseMA10": 239.06,
-      "bestModel": "5-Yr Moving Average"
+      "bestModel": "5-Yr Moving Average",
+      "minVal": 776.3,
+      "minYear": 1974,
+      "maxVal": 1919.2,
+      "maxYear": 1955,
+      "stdDev": 246.24,
+      "cvPct": 19.5,
+      "totalTrendChange": -108.6
     },
     {
       "state": "JHARKHAND",
@@ -4197,7 +4330,14 @@
       "rmseLinear": 189.14,
       "rmseMA5": 213.52,
       "rmseMA10": 202.53,
-      "bestModel": "Linear Regression"
+      "bestModel": "Linear Regression",
+      "minVal": 697.1,
+      "minYear": 2010,
+      "maxVal": 1898.7,
+      "maxYear": 1971,
+      "stdDev": 197.39,
+      "cvPct": 15.1,
+      "totalTrendChange": -193.9
     },
     {
       "state": "CHATISGARH",
@@ -4343,7 +4483,14 @@
       "rmseLinear": 201.08,
       "rmseMA5": 217.45,
       "rmseMA10": 206.45,
-      "bestModel": "Linear Regression"
+      "bestModel": "Linear Regression",
+      "minVal": 904.6,
+      "minYear": 1979,
+      "maxVal": 1973.9,
+      "maxYear": 1961,
+      "stdDev": 209.76,
+      "cvPct": 15.3,
+      "totalTrendChange": -205
     },
     {
       "state": "MAHARASHTRA",
@@ -4489,7 +4636,14 @@
       "rmseLinear": 157.72,
       "rmseMA5": 172.01,
       "rmseMA10": 168.87,
-      "bestModel": "Linear Regression"
+      "bestModel": "Linear Regression",
+      "minVal": 513.2,
+      "minYear": 1920,
+      "maxVal": 1259.17,
+      "maxYear": 1933,
+      "stdDev": 157.9,
+      "cvPct": 17.1,
+      "totalTrendChange": 25.8
     },
     {
       "state": "BIHAR",
@@ -4635,7 +4789,14 @@
       "rmseLinear": 189.2,
       "rmseMA5": 206.27,
       "rmseMA10": 195.41,
-      "bestModel": "Linear Regression"
+      "bestModel": "Linear Regression",
+      "minVal": 629.2,
+      "minYear": 2010,
+      "maxVal": 1660.5,
+      "maxYear": 1987,
+      "stdDev": 193.79,
+      "cvPct": 16.2,
+      "totalTrendChange": -144.1
     },
     {
       "state": "KARNATAKA",
@@ -4781,7 +4942,14 @@
       "rmseLinear": 211.42,
       "rmseMA5": 237.27,
       "rmseMA10": 233.49,
-      "bestModel": "Linear Regression"
+      "bestModel": "Linear Regression",
+      "minVal": 1257.47,
+      "minYear": 1918,
+      "maxVal": 2570.67,
+      "maxYear": 1961,
+      "stdDev": 219.38,
+      "cvPct": 12.7,
+      "totalTrendChange": 201.2
     },
     {
       "state": "CHANDIGARH",
@@ -4927,7 +5095,14 @@
       "rmseLinear": 141.56,
       "rmseMA5": 159.96,
       "rmseMA10": 145.95,
-      "bestModel": "Linear Regression"
+      "bestModel": "Linear Regression",
+      "minVal": 234.6,
+      "minYear": 1918,
+      "maxVal": 986.8,
+      "maxYear": 1917,
+      "stdDev": 141.57,
+      "cvPct": 26.7,
+      "totalTrendChange": -6.7
     },
     {
       "state": "MADHYA PRADESH",
@@ -5073,7 +5248,14 @@
       "rmseLinear": 179.9,
       "rmseMA5": 200.93,
       "rmseMA10": 191.09,
-      "bestModel": "Linear Regression"
+      "bestModel": "Linear Regression",
+      "minVal": 646.25,
+      "minYear": 1965,
+      "maxVal": 1516.1,
+      "maxYear": 1961,
+      "stdDev": 181.19,
+      "cvPct": 16.9,
+      "totalTrendChange": -74.1
     },
     {
       "state": "JAMMU AND KASHMIR",
@@ -5219,7 +5401,14 @@
       "rmseLinear": 229.2,
       "rmseMA5": 235.85,
       "rmseMA10": 235.01,
-      "bestModel": "Linear Regression"
+      "bestModel": "Linear Regression",
+      "minVal": 656.9,
+      "minYear": 1970,
+      "maxVal": 1732.4,
+      "maxYear": 1994,
+      "stdDev": 233.48,
+      "cvPct": 20.5,
+      "totalTrendChange": 152.6
     },
     {
       "state": "TAMIL NADU",
@@ -5365,7 +5554,14 @@
       "rmseLinear": 164.85,
       "rmseMA5": 191.38,
       "rmseMA10": 177.64,
-      "bestModel": "Linear Regression"
+      "bestModel": "Linear Regression",
+      "minVal": 318,
+      "minYear": 2002,
+      "maxVal": 1365.4,
+      "maxYear": 2005,
+      "stdDev": 165.28,
+      "cvPct": 17.5,
+      "totalTrendChange": -40.8
     },
     {
       "state": "UTTAR PRADESH",
@@ -5511,7 +5707,14 @@
       "rmseLinear": 174.06,
       "rmseMA5": 182.67,
       "rmseMA10": 175.07,
-      "bestModel": "Linear Regression"
+      "bestModel": "Linear Regression",
+      "minVal": 469.35,
+      "minYear": 1997,
+      "maxVal": 1382,
+      "maxYear": 1936,
+      "stdDev": 180.38,
+      "cvPct": 20,
+      "totalTrendChange": -162.6
     },
     {
       "state": "ANDHRA PRADESH",
@@ -5657,7 +5860,14 @@
       "rmseLinear": 145.37,
       "rmseMA5": 160.67,
       "rmseMA10": 153.17,
-      "bestModel": "Linear Regression"
+      "bestModel": "Linear Regression",
+      "minVal": 646.75,
+      "minYear": 1904,
+      "maxVal": 1338,
+      "maxYear": 2010,
+      "stdDev": 146.59,
+      "cvPct": 16.1,
+      "totalTrendChange": 64.6
     },
     {
       "state": "GUJARAT",
@@ -5803,7 +6013,14 @@
       "rmseLinear": 222.99,
       "rmseMA5": 248.59,
       "rmseMA10": 247.86,
-      "bestModel": "Linear Regression"
+      "bestModel": "Linear Regression",
+      "minVal": 247.15,
+      "minYear": 1987,
+      "maxVal": 1290.75,
+      "maxYear": 1959,
+      "stdDev": 224.15,
+      "cvPct": 31.7,
+      "totalTrendChange": 78.3
     },
     {
       "state": "DELHI",
@@ -5949,7 +6166,14 @@
       "rmseLinear": 141.56,
       "rmseMA5": 159.96,
       "rmseMA10": 145.95,
-      "bestModel": "Linear Regression"
+      "bestModel": "Linear Regression",
+      "minVal": 234.6,
+      "minYear": 1918,
+      "maxVal": 986.8,
+      "maxYear": 1917,
+      "stdDev": 141.57,
+      "cvPct": 26.7,
+      "totalTrendChange": -6.7
     },
     {
       "state": "PUNJAB",
@@ -6095,7 +6319,14 @@
       "rmseLinear": 162.59,
       "rmseMA5": 175.62,
       "rmseMA10": 166.14,
-      "bestModel": "Linear Regression"
+      "bestModel": "Linear Regression",
+      "minVal": 274.7,
+      "minYear": 2002,
+      "maxVal": 1222.6,
+      "maxYear": 1988,
+      "stdDev": 162.64,
+      "cvPct": 27.4,
+      "totalTrendChange": -14.3
     },
     {
       "state": "HARYANA",
@@ -6241,7 +6472,14 @@
       "rmseLinear": 141.56,
       "rmseMA5": 159.96,
       "rmseMA10": 145.95,
-      "bestModel": "Linear Regression"
+      "bestModel": "Linear Regression",
+      "minVal": 234.6,
+      "minYear": 1918,
+      "maxVal": 986.8,
+      "maxYear": 1917,
+      "stdDev": 141.57,
+      "cvPct": 26.7,
+      "totalTrendChange": -6.7
     },
     {
       "state": "RAJASTHAN",
@@ -6387,7 +6625,14 @@
       "rmseLinear": 130.35,
       "rmseMA5": 146.47,
       "rmseMA10": 138.59,
-      "bestModel": "Linear Regression"
+      "bestModel": "Linear Regression",
+      "minVal": 167.9,
+      "minYear": 1918,
+      "maxVal": 1059.65,
+      "maxYear": 1917,
+      "stdDev": 130.35,
+      "cvPct": 27.5,
+      "totalTrendChange": 1.8
     }
   ],
   "timeSeries": {

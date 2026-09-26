@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     paper_bgcolor: '#ffffff',
     plot_bgcolor: '#ffffff',
-    margin: { l: 60, r: 30, t: 40, b: 60 },
+    margin: { l: 60, r: 30, t: 75, b: 60 },
     hovermode: 'closest',
     autosize: true
   };
@@ -173,7 +173,11 @@ document.addEventListener('DOMContentLoaded', () => {
         ...academicLayoutBase,
         title: {
           text: `Annual Rainfall Normal by ${currentLevel === 'subdivisions' ? 'Meteorological Subdivision' : 'State'} (Sorted Wettest to Driest)`,
-          font: { size: 14, color: '#1e3a8a', weight: 600 }
+          font: { size: 14, color: '#1e3a8a', weight: 600 },
+          x: 0.02,
+          xanchor: 'left',
+          y: 0.94,
+          pad: { t: 8 }
         },
         xaxis: {
           tickangle: -45,
@@ -186,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
           zeroline: true,
           zerolinecolor: '#cbd5e1'
         },
-        margin: { l: 60, r: 20, t: 40, b: 120 }
+        margin: { l: 60, r: 25, t: 75, b: 120 }
       };
 
       Plotly.newPlot('regional-chart-container', [trace], layout, plotlyConfig);
@@ -247,7 +251,11 @@ document.addEventListener('DOMContentLoaded', () => {
         ...academicLayoutBase,
         title: {
           text: `Geographic Rainfall Distribution Across India (Bubble Size = Annual Precipitation)`,
-          font: { size: 14, color: '#1e3a8a', weight: 600 }
+          font: { size: 14, color: '#1e3a8a', weight: 600 },
+          x: 0.02,
+          xanchor: 'left',
+          y: 0.94,
+          pad: { t: 8 }
         },
         geo: {
           scope: 'asia',
@@ -263,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
           lonaxis: { range: [68, 98] },
           resolution: 50
         },
-        margin: { l: 20, r: 20, t: 40, b: 20 }
+        margin: { l: 20, r: 20, t: 75, b: 20 }
       };
 
       Plotly.newPlot('regional-chart-container', [trace], layout, plotlyConfig);
@@ -329,7 +337,11 @@ document.addEventListener('DOMContentLoaded', () => {
       barmode: 'stack',
       title: {
         text: 'Seasonal Precipitation Breakdown (Winter / Pre-Monsoon / Monsoon / Post-Monsoon)',
-        font: { size: 14, color: '#1e3a8a', weight: 600 }
+        font: { size: 13, color: '#1e3a8a', weight: 600 },
+        x: 0.02,
+        xanchor: 'left',
+        y: 0.88,
+        pad: { t: 0, b: 4 }
       },
       xaxis: {
         tickangle: -45,
@@ -342,11 +354,11 @@ document.addEventListener('DOMContentLoaded', () => {
       },
       legend: {
         orientation: 'h',
-        y: 1.12,
-        x: 0.1,
-        font: { size: 11 }
+        y: 1.05,
+        x: 0.02,
+        font: { size: 10.5 }
       },
-      margin: { l: 60, r: 20, t: 60, b: 120 }
+      margin: { l: 60, r: 25, t: 80, b: 120 }
     };
 
     Plotly.newPlot('seasonal-chart-container', [traceWinter, tracePreMonsoon, traceMonsoon, tracePostMonsoon], layout, plotlyConfig);
@@ -385,7 +397,11 @@ document.addEventListener('DOMContentLoaded', () => {
       ...academicLayoutBase,
       title: {
         text: 'Monsoon Dependency Ratio (% of Annual Rainfall Received in Jun–Sep)',
-        font: { size: 14, color: '#1e3a8a', weight: 600 }
+        font: { size: 13, color: '#1e3a8a', weight: 600 },
+        x: 0.02,
+        xanchor: 'left',
+        y: 0.88,
+        pad: { t: 0, b: 4 }
       },
       xaxis: {
         title: 'Monsoon Share (%)',
@@ -421,7 +437,7 @@ document.addEventListener('DOMContentLoaded', () => {
           font: { size: 11, color: '#475569', weight: 600 }
         }
       ],
-      margin: { l: 160, r: 20, t: 40, b: 60 }
+      margin: { l: 160, r: 25, t: 80, b: 60 }
     };
 
     Plotly.newPlot('monsoon-dependency-container', [trace], layout, plotlyConfig);
@@ -443,19 +459,64 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    // Calculate or fallback historical range & stats directly from tsData if missing or invalid
+    let minVal = regionObj.minVal;
+    let minYear = regionObj.minYear;
+    let maxVal = regionObj.maxVal;
+    let maxYear = regionObj.maxYear;
+
+    if (minVal == null || maxVal == null || minYear == null || maxYear == null || isNaN(minVal) || isNaN(maxVal)) {
+      if (tsData && tsData.annual && tsData.annual.length > 0) {
+        let calcMin = Infinity, calcMinYr = null;
+        let calcMax = -Infinity, calcMaxYr = null;
+        for (let i = 0; i < tsData.annual.length; i++) {
+          const val = tsData.annual[i];
+          const yr = tsData.years ? tsData.years[i] : null;
+          if (val != null && !isNaN(val)) {
+            if (val < calcMin) { calcMin = val; calcMinYr = yr; }
+            if (val > calcMax) { calcMax = val; calcMaxYr = yr; }
+          }
+        }
+        if (calcMin !== Infinity) {
+          minVal = Number(calcMin.toFixed(1));
+          minYear = calcMinYr;
+          maxVal = Number(calcMax.toFixed(1));
+          maxYear = calcMaxYr;
+        }
+      }
+    }
+
+    let stdDev = regionObj.stdDev;
+    let cvPct = regionObj.cvPct;
+    if (stdDev == null || isNaN(stdDev) || cvPct == null || isNaN(cvPct)) {
+      if (tsData && tsData.annual && tsData.annual.length > 0) {
+        const mean = (regionObj.avgAnnual || regionObj.histAvgAnnual || 0);
+        if (mean > 0) {
+          const n = tsData.annual.length;
+          const variance = tsData.annual.reduce((acc, val) => acc + Math.pow(val - mean, 2), 0) / n;
+          stdDev = Number(Math.sqrt(variance).toFixed(1));
+          cvPct = Number(((stdDev / mean) * 100).toFixed(1));
+        }
+      }
+    }
+
+    const slopeVal = regionObj.slope || 0;
+    const totalTrendChange = regionObj.totalTrendChange != null 
+      ? regionObj.totalTrendChange 
+      : Number((slopeVal * (tsData.years ? tsData.years.length - 1 : 114)).toFixed(1));
+
     // Update Sub-Stat Cards
     document.getElementById('stat-normal-val').textContent = `${regionObj.avgAnnual || regionObj.histAvgAnnual} mm`;
-    document.getElementById('stat-range-val').textContent = `${regionObj.minVal || 'N/A'} - ${regionObj.maxVal || 'N/A'} mm`;
-    document.getElementById('stat-range-sub').textContent = `Min Year: ${regionObj.minYear || 'N/A'} | Max Year: ${regionObj.maxYear || 'N/A'}`;
+    document.getElementById('stat-range-val').textContent = `${minVal != null ? minVal : 'N/A'} - ${maxVal != null ? maxVal : 'N/A'} mm`;
+    document.getElementById('stat-range-sub').textContent = `Min Year: ${minYear || 'N/A'} | Max Year: ${maxYear || 'N/A'}`;
     
-    const slopeVal = regionObj.slope;
     const slopeDirection = slopeVal > 0.5 ? 'Increasing' : (slopeVal < -0.5 ? 'Decreasing' : 'Stable');
     const badgeClass = slopeVal > 0.5 ? 'badge-increasing' : (slopeVal < -0.5 ? 'badge-decreasing' : 'badge-stable');
     document.getElementById('stat-trend-val').innerHTML = `<span class="badge ${badgeClass}">${slopeDirection} (${slopeVal > 0 ? '+' : ''}${slopeVal} mm/yr)</span>`;
-    document.getElementById('stat-trend-sub').textContent = `R²: ${regionObj.rSquared} | 115-Yr Shift: ${regionObj.totalTrendChange || Number((slopeVal*114).toFixed(1))} mm`;
+    document.getElementById('stat-trend-sub').textContent = `R²: ${regionObj.rSquared != null ? regionObj.rSquared : 'N/A'} | 115-Yr Shift: ${totalTrendChange} mm`;
 
-    document.getElementById('stat-cv-val').textContent = `${regionObj.cvPct || '18.2'}%`;
-    document.getElementById('stat-cv-sub').textContent = `Std Dev: ±${regionObj.stdDev || 'N/A'} mm`;
+    document.getElementById('stat-cv-val').textContent = `${cvPct != null ? cvPct : '18.2'}%`;
+    document.getElementById('stat-cv-sub').textContent = `Std Dev: ±${stdDev != null ? stdDev : 'N/A'} mm`;
 
     // Update Forecast Comparison Cards
     const normalVal = regionObj.avgAnnual || regionObj.histAvgAnnual;
@@ -552,28 +613,98 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // 5. 2016 Forecast Points
-    if (modelToggles.forecast) {
-      const fcYears = [2016, 2016, 2016];
-      const fcValues = [regionObj.predLinear, regionObj.predMA5, regionObj.predMA10];
-      const fcNames = ['Linear Pred (2016)', '5-Yr MA Pred (2016)', '10-Yr MA Pred (2016)'];
-      const fcColors = ['#dc2626', '#d97706', '#059669'];
+    // 5. 2016 Forecast Points & Clean Non-Overlapping Callouts
+    const annotations = [
+      {
+        x: 1905,
+        y: normalVal,
+        text: `Historical Normal: ${normalVal} mm`,
+        showarrow: true,
+        arrowhead: 2,
+        ax: 0,
+        ay: -24,
+        font: { size: 11, color: '#475569', weight: 600 },
+        bgcolor: '#ffffff',
+        bordercolor: '#cbd5e1',
+        borderwidth: 1
+      }
+    ];
 
+    if (modelToggles.forecast) {
+      const fcPoints = [
+        {
+          model: 'Linear Regression (OLS)',
+          shortName: 'Linear',
+          y: regionObj.predLinear,
+          dep: `${regionObj.linearDeparturePct >= 0 ? '+' : ''}${regionObj.linearDeparturePct}%`,
+          color: '#dc2626',
+          symbol: 'diamond'
+        },
+        {
+          model: '5-Year Moving Average',
+          shortName: '5-Yr MA',
+          y: regionObj.predMA5,
+          dep: `${regionObj.ma5DeparturePct >= 0 ? '+' : ''}${regionObj.ma5DeparturePct}%`,
+          color: '#d97706',
+          symbol: 'circle'
+        },
+        {
+          model: '10-Year Moving Average',
+          shortName: '10-Yr MA',
+          y: regionObj.predMA10,
+          dep: `${regionObj.ma10DeparturePct >= 0 ? '+' : ''}${regionObj.ma10DeparturePct}%`,
+          color: '#059669',
+          symbol: 'square'
+        }
+      ];
+
+      // Add scatter trace for the 3 markers with clean rich tooltips
       traces.push({
-        x: fcYears,
-        y: fcValues,
+        x: [2016, 2016, 2016],
+        y: fcPoints.map(p => p.y),
+        customdata: fcPoints.map(p => [p.model, p.dep]),
         name: '2016 Next-Year Forecasts',
         type: 'scatter',
-        mode: 'markers+text',
-        text: fcNames,
-        textposition: ['top right', 'middle right', 'bottom right'],
+        mode: 'markers',
         marker: {
-          color: fcColors,
+          color: fcPoints.map(p => p.color),
           size: 11,
-          symbol: ['diamond', 'circle', 'square'],
+          symbol: fcPoints.map(p => p.symbol),
           line: { color: '#0f172a', width: 1.5 }
         },
-        hovertemplate: '<b>%{text}</b><br>Forecast: <b>%{y:.1f} mm</b><extra></extra>'
+        hovertemplate: '<b>%{customdata[0]}</b><br>2016 Forecast: <b>%{y:.1f} mm</b> (%{customdata[1]} vs Normal)<extra></extra>'
+      });
+
+      // Sort points by predicted rainfall value descending to stack callouts vertically
+      const sortedFc = [...fcPoints].sort((a, b) => b.y - a.y);
+      // Smart vertical pixel offsets ensuring labels NEVER collide even if values are identical
+      const offsets = [
+        { ax: 62, ay: -26 },  // Top point
+        { ax: 74, ay: 0 },    // Middle point
+        { ax: 62, ay: 26 }    // Bottom point
+      ];
+
+      sortedFc.forEach((pt, idx) => {
+        annotations.push({
+          x: 2016,
+          y: pt.y,
+          xref: 'x',
+          yref: 'y',
+          text: `<b>${pt.shortName}:</b> ${pt.y.toFixed(1)} mm`,
+          showarrow: true,
+          arrowhead: 2,
+          arrowsize: 0.8,
+          arrowwidth: 1.2,
+          arrowcolor: pt.color,
+          ax: offsets[idx].ax,
+          ay: offsets[idx].ay,
+          font: { size: 10, color: pt.color, weight: 600 },
+          bgcolor: '#ffffff',
+          bordercolor: pt.color,
+          borderwidth: 1,
+          borderpad: 3,
+          opacity: 0.95
+        });
       });
     }
 
@@ -581,11 +712,15 @@ document.addEventListener('DOMContentLoaded', () => {
       ...academicLayoutBase,
       title: {
         text: `115-Year Rainfall Trajectory & 2016 Forecasts for ${currentRegion} (1901–2015)`,
-        font: { size: 15, color: '#1e3a8a', weight: 700 }
+        font: { size: 14.5, color: '#1e3a8a', weight: 700 },
+        x: 0.02,
+        xanchor: 'left',
+        y: 0.96,
+        pad: { t: 6 }
       },
       xaxis: {
         title: 'Year',
-        range: [1898, 2019],
+        range: [1898, 2021],
         gridcolor: '#f1f5f9',
         dtick: 10
       },
@@ -608,28 +743,14 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         }
       ],
-      annotations: [
-        {
-          x: 1905,
-          y: normalVal,
-          text: `Historical Normal: ${normalVal} mm`,
-          showarrow: true,
-          arrowhead: 2,
-          ax: 0,
-          ay: -24,
-          font: { size: 11, color: '#475569', weight: 600 },
-          bgcolor: '#ffffff',
-          bordercolor: '#cbd5e1',
-          borderwidth: 1
-        }
-      ],
+      annotations: annotations,
       legend: {
         orientation: 'h',
-        y: 1.14,
-        x: 0.05,
+        y: 1.10,
+        x: 0.02,
         font: { size: 11 }
       },
-      margin: { l: 60, r: 40, t: 70, b: 60 }
+      margin: { l: 60, r: 65, t: 95, b: 60 }
     };
 
     Plotly.newPlot('trend-chart-container', traces, layout, plotlyConfig);
