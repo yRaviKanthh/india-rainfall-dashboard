@@ -30,4 +30,4 @@ An interactive dashboard analyzing 115 years (1901–2015) of India Meteorologic
 
 ## Live Demo
 
-[Add your GitHub Pages link here once deployed]
+https://yravikanthh.github.io/india-rainfall-dashboard/
