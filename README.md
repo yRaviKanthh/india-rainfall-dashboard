@@ -26,7 +26,7 @@ An interactive dashboard analyzing 115 years (1901–2015) of India Meteorologic
 
 - HTML5, JavaScript, Plotly.js for interactive charts
 - Node.js (local dev server)
-- Built with AI-assisted development (Google Antigravity) for rapid prototyping and data pipeline generation, based on the IMD datasets above.
+- Built with AI-assisted development for rapid prototyping and data pipeline generation, based on the IMD datasets above.
 
 ## Live Demo
 
